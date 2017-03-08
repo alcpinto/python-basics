@@ -16,12 +16,12 @@ import pandas as pd
 #     print(row)
 
 # example with pandas
-# dfs = pd.read_html('https://pythonprogramming.net/parsememcparseface/', header=0)
-# for df in dfs:
-#     print(df)
+dfs = pd.read_html('https://pythonprogramming.net/parsememcparseface/', header=0)
+for df in dfs:
+    print(df)
 
-source = urlRequest.urlopen('https://pythonprogramming.net/sitemap.xml').read()
-soup = bs.BeautifulSoup(source, 'xml')
-# print(soup)
-for url in soup.find_all('loc'):
-    print(url.text)
+# source = urlRequest.urlopen('https://pythonprogramming.net/sitemap.xml').read()
+# soup = bs.BeautifulSoup(source, 'xml')
+# # print(soup)
+# for url in soup.find_all('loc'):
+#     print(url.text)
