@@ -11,7 +11,10 @@ api_key = open('quandlapikey.txt','r').read()
 # print(df.head())
 
 fiddy_states = pd.read_html('https://simple.wikipedia.org/wiki/List_of_U.S._states')
+# List of dataframes
 # print(fiddy_states)
 
+# Iterate over rows 1 to end (discard first row because is table headers)
+# of first column of first dataframe
 for abbv in fiddy_states[0][0][1:]:
     print('FMAC/HPI_'+abbv)
