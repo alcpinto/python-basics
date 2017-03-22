@@ -11,12 +11,12 @@ web_stats = {'Day': [1, 2, 3, 4, 5, 6],
 df = pd.DataFrame(web_stats)
 
 # returns a new dataframe
-df2 = df.set_index('Day')
-print(df)
+# df2 = df.set_index('Day')
+# print(df)
 
 # change existing dataframe
-# df.set_index('Day', inplace=True)
-# print(df)
+df.set_index('Day', inplace=True)
+print(df)
 
 
 # print(df)

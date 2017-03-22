@@ -41,7 +41,7 @@ def grab_initial_state_data():
     main_df.to_pickle('fiddy_states.pickle')
 
 
-grab_initial_state_data()
+# grab_initial_state_data()
 # pickle_in = open('fiddy_states.pickle','rb')
 # HPI_data = pickle.load(pickle_in)
 # pickle_in.close()
