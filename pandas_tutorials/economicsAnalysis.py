@@ -88,13 +88,11 @@ def us_unemployment():
 sp500DF = sp500_data()
 gdpDF = gdp_data()
 unemploymentDF = us_unemployment()
-
-
 m30DF = mortgage_30y()
 HPI_data = pd.read_pickle('fiddy_states_pct.pickle')
 HPI_bench = hpi_benchmark()
 
-HPI = HPI_data.join([m30DF, unemploymentDF, gdpDF, sp500DF])
+HPI = HPI_data.join([HPI_bench, m30DF, unemploymentDF, gdpDF, sp500DF])
 HPI.dropna(inplace=True)
 print(HPI)
 print(HPI.corr())
