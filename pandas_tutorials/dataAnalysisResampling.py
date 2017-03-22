@@ -7,7 +7,7 @@ style.use('ggplot')
 
 
 # Not necessary, I just do this so I do not show my API key.
-api_key = open('quandlapikey.txt','r').read()
+# api_key = open('quandlapikey.txt','r').read()
 
 
 def state_list():
@@ -49,21 +49,19 @@ def hpi_benchmark():
 
 # grab_initial_state_data()
 
-# fig = plt.figure()
-# ax1 = plt.subplot2grid((1, 1), (0, 0))
-
-# HPI_data = pd.read_pickle('fiddy_states_pct.pickle')
-# benchmark = hpi_benchmark()
-#
-# HPI_data.plot(ax=ax1)
-# benchmark.plot(ax=ax1, color='k', linewidth=10)
-#
-# plt.legend().remove()
-# plt.show()
-
+fig = plt.figure()
+ax1 = plt.subplot2grid((1, 1), (0, 0))
 
 HPI_data = pd.read_pickle('fiddy_states.pickle')
-HPI_State_Correlation = HPI_data.corr()
-print(HPI_State_Correlation)
 
-print(HPI_State_Correlation.describe())
+# 'A' means Annual
+# TX1yr = HPI_data['TX'].resample('A', how='ohlc')
+# New syntax
+TX1yr = HPI_data['TX'].resample('A').ohlc()
+print(TX1yr.head())
+
+HPI_data['TX'].plot(ax=ax1, label='Monthly TX HPI')
+TX1yr.plot(ax=ax1)
+
+plt.legend()
+plt.show()

@@ -7,8 +7,8 @@ style.use('ggplot')
 
 
 # Not necessary, I just do this so I do not show my API key.
-api_key = open('quandlapikey.txt','r').read()
-
+# api_key = open('quandlapikey.txt','r').read()
+api_key = 'make program happy'
 
 def state_list():
     # List of dataframes print(fiddy_states)
@@ -49,21 +49,33 @@ def hpi_benchmark():
 
 # grab_initial_state_data()
 
-# fig = plt.figure()
-# ax1 = plt.subplot2grid((1, 1), (0, 0))
-
-# HPI_data = pd.read_pickle('fiddy_states_pct.pickle')
-# benchmark = hpi_benchmark()
-#
-# HPI_data.plot(ax=ax1)
-# benchmark.plot(ax=ax1, color='k', linewidth=10)
-#
-# plt.legend().remove()
-# plt.show()
-
+fig = plt.figure()
+ax1 = plt.subplot2grid((1, 1), (0, 0))
 
 HPI_data = pd.read_pickle('fiddy_states.pickle')
-HPI_State_Correlation = HPI_data.corr()
-print(HPI_State_Correlation)
 
-print(HPI_State_Correlation.describe())
+# 'A' means Annual
+# TX1yr = HPI_data['TX'].resample('A', how='ohlc')
+# New syntax
+HPI_data['TX1yr'] = HPI_data['TX'].resample('A').mean()
+print(HPI_data[['TX', 'TX1yr']].head())
+# Removes all rows that have NaN
+# HPI_data.dropna(inplace=True)
+# Removes all rows that have NaN in 'all' columns
+# HPI_data.dropna(how='all', inplace=True)
+# Fill all NaN with a specific value
+# method='ffill' -> takes a previous value and fill forward with that value
+# method='bfill' -> takes a forward value and fill backwards with that value
+# value=-99999 -> Fills with the value passed in parameter.
+# Very useful in machine learning because the model can interpreter as an outlier
+# limit -> number of substitutions that we want to do
+HPI_data.fillna(value=-99999, limit=10, inplace=True)
+print(HPI_data[['TX', 'TX1yr']].head())
+
+# Check how many rows NaN we have
+print(HPI_data.isnull().values.sum())
+
+HPI_data[['TX', 'TX1yr']].plot(ax=ax1)
+
+plt.legend()
+plt.show()

@@ -7,8 +7,8 @@ style.use('ggplot')
 
 
 # Not necessary, I just do this so I do not show my API key.
-api_key = open('quandlapikey.txt','r').read()
-
+# api_key = open('quandlapikey.txt','r').read()
+api_key = 'make program happy'
 
 def state_list():
     # List of dataframes print(fiddy_states)
@@ -49,21 +49,32 @@ def hpi_benchmark():
 
 # grab_initial_state_data()
 
-# fig = plt.figure()
+fig = plt.figure()
 # ax1 = plt.subplot2grid((1, 1), (0, 0))
-
-# HPI_data = pd.read_pickle('fiddy_states_pct.pickle')
-# benchmark = hpi_benchmark()
-#
-# HPI_data.plot(ax=ax1)
-# benchmark.plot(ax=ax1, color='k', linewidth=10)
-#
-# plt.legend().remove()
-# plt.show()
-
+ax1 = plt.subplot2grid((2, 1), (0, 0))
+ax2 = plt.subplot2grid((2, 1), (1, 0), sharex=ax1)
 
 HPI_data = pd.read_pickle('fiddy_states.pickle')
-HPI_State_Correlation = HPI_data.corr()
-print(HPI_State_Correlation)
 
-print(HPI_State_Correlation.describe())
+# 'A' means Annual
+# HPI_data['TX12MA'] = pd.rolling_mean(HPI_data['TX'], 12)
+# New syntax
+# HPI_data['TX12MA'] = HPI_data['TX'].rolling(12, center=False).mean()
+# HPI_data['TX12STD'] = HPI_data['TX'].rolling(12, center=False).std()
+# print(HPI_data[['TX', 'TX12MA', 'TX12STD']].head())
+#
+# HPI_data[['TX', 'TX12MA']].plot(ax=ax1)
+# HPI_data['TX12STD'].plot(ax=ax2)
+
+# TX_AK_12corr = pd.rolling_corr(HPI_data['TX'], HPI_data['AK'], 12)
+TX_AK_12corr = HPI_data['TX'].rolling(12, center=False).corr(HPI_data['AK'])
+print(TX_AK_12corr)
+
+HPI_data['TX'].plot(ax=ax1, label='TX HPI')
+HPI_data['AK'].plot(ax=ax1, label='AK HPI')
+ax1.legend(loc=4)
+
+TX_AK_12corr.plot(ax=ax2, label='TX_AK_12corr')
+
+plt.legend()
+plt.show()
