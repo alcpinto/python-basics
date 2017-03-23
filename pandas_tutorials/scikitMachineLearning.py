@@ -45,4 +45,4 @@ X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_s
 clf = svm.SVC(kernel='linear')
 clf.fit(X_train, y_train)
 
-# print(clf.score(X_test, y_test))
+print(clf.score(X_test, y_test))
